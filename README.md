@@ -1,5 +1,7 @@
 # auth-js-d1-example
-Example of Auth.js D1 Adapter
+Minimal demo example of Auth.js D1 Adapter
+
+Uses [Resend powered Magic Links](https://authjs.dev/getting-started/authentication/email) and Cloudflare D1 [Auth.js adapter](https://authjs.dev/getting-started/adapters/d1).
 
 
 ## How was this made?
@@ -7,9 +9,10 @@ Example of Auth.js D1 Adapter
 2. Added [Auth.js](https://authjs.dev/getting-started)
 3. Added [D1 Adapter](https://authjs.dev/getting-started/adapters/d1)
 4. Added [Magic Links](https://authjs.dev/getting-started/authentication/email)
-5. Once everything is connect run the DB setup by visiting `/api/setup`
+5. Made minimal UI using v0.dev
+6. Once everything is connect run the DB setup by visiting `/api/setup`
 
-# Add [Secrets](https://developers.cloudflare.com/pages/functions/bindings/#secrets) for:
+## Add [Secrets](https://developers.cloudflare.com/pages/functions/bindings/#secrets) for:
 - AUTH_SECRET (just a random string)
 - AUTH_RESEND_KEY (API key from Resend)
 - AUTH_EMAIL_FROM (email address)
