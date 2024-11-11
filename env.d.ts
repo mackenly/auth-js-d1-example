@@ -2,9 +2,8 @@
 // by running `wrangler types --env-interface CloudflareEnv env.d.ts`
 
 interface CloudflareEnv {
-    db:  D1Database;
+    DB: D1Database;
     AUTH_SECRET: string;
     AUTH_RESEND_KEY: string;
     AUTH_EMAIL_FROM: string;
-    AUTH_TRUST_HOST: string;
 }

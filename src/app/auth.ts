@@ -1,12 +1,10 @@
-
 import NextAuth from "next-auth";
 import { NextAuthResult } from "next-auth";
 import { D1Adapter } from "@auth/d1-adapter";
 import Resend from "next-auth/providers/resend";
 
-export const runtime = "edge";
 
-const authResult = (): NextAuthResult => {  
+const authResult = (): NextAuthResult => {
     return NextAuth({
         providers: [
             Resend({
@@ -14,7 +12,7 @@ const authResult = (): NextAuthResult => {
                 from: process.env.AUTH_EMAIL_FROM,
             })
         ],
-        adapter: D1Adapter(process.env.db),
+        adapter: D1Adapter(process.env.DB),
     })
 };
 

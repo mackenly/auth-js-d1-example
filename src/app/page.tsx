@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { signIn, signOut, auth } from './auth';
 import { updateRecord } from '@auth/d1-adapter';
 import { Button } from '@/components/ui/button';
@@ -6,20 +7,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Label } from '@/components/ui/label';
 
-export const runtime = 'edge';
-
-async function updateName(formData: FormData) {
+async function updateName(formData: FormData): Promise<void> {
 	'use server';
-  const session = await auth();
-  if (!session?.user?.id) {
-    return;
-  }
-  const name = formData.get('name') as string;
-  if (!name) {
-    return;
-  }
-  const query = `UPDATE users SET name = $1 WHERE id = $2`;
-  await updateRecord(process.env.db, query, [name, session.user.id]);
+	const session = await auth();
+	if (!session?.user?.id) {
+		return;
+	}
+	const name = formData.get('name') as string;
+	if (!name) {
+		return;
+	}
+	const query = `UPDATE users SET name = $1 WHERE id = $2`;
+	await updateRecord(process.env.DB, query, [name, session.user.id]);
+	redirect('/');
 }
 
 export default async function Home() {
@@ -51,7 +51,7 @@ export default async function Home() {
 								<p className="text-sm font-medium">User ID: {session.user?.id}</p>
 							</div>
 							<form action={updateName} className="space-y-2">
-								<Label htmlFor="name">Update Name (Refresh to see change)</Label>
+								<Label htmlFor="name">Update Name</Label>
 								<Input id="name" name="name" placeholder="Enter new name" />
 								<Button type="submit" className="w-full">
 									Update Name
@@ -89,7 +89,7 @@ export default async function Home() {
 							action={async () => {
 								'use server';
 								await signOut();
-                return Response.redirect('/');
+								Response.redirect('/');
 							}}
 						>
 							<Button type="submit" variant="outline" className="w-full">
