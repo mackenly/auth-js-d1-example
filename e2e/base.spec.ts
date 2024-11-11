@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("the index page of the application shows the Next.js logo", async ({ page }) => {
+test("the index page of the application contains the app's name", async ({ page }) => {
     await page.goto("/");
 
     // the page should contain the words "auth-js-d1-example"
