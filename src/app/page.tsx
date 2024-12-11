@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { signIn, signOut, auth } from './auth';
 import { updateRecord } from '@auth/d1-adapter';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -18,7 +19,7 @@ async function updateName(formData: FormData): Promise<void> {
 		return;
 	}
 	const query = `UPDATE users SET name = $1 WHERE id = $2`;
-	await updateRecord(process.env.DB, query, [name, session.user.id]);
+	await updateRecord((await getCloudflareContext()).env.DB, query, [name, session.user.id]);
 	redirect('/');
 }
 
